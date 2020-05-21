@@ -1,0 +1,15 @@
+enabled,id,password,role,userName
+true,a762e9d2-9865-11ea-bb37-0242ac130002,,2,user_merchand1
+true,a762e9d2-9865-11ea-bb37-0242ac130003,,2,user_merchand2
+true,a762e9d2-9865-11ea-bb37-0242ac130004,,2,user_merchand3
+true,a762e9d2-9865-11ea-bb37-0242ac130005,,2,user_merchand4
+true,a762e9d2-9865-11ea-bb37-0242ac130006,,2,user_merchand5
+true,a762e9d2-9865-11ea-bb37-0242ac130007,,2,user_merchand6
+true,a762e9d2-9865-11ea-bb37-0242ac130008,,2,user_merchand7
+true,a762e9d2-9865-11ea-bb37-0242ac130009,,2,user_merchand8
+true,u762e9d2-9865-11ea-bb37-0242ac130002,,1,admin1
+true,u762e9d2-9865-11ea-bb37-0242ac130003,,1,admin2
+true,u762e9d2-9865-11ea-bb37-0242ac130004,,1,admin3
+true,u762e9d2-9865-11ea-bb37-0242ac130005,,1,admin4
+true,u762e9d2-9865-11ea-bb37-0242ac130006,,1,admin5
+true,u762e9d2-9865-11ea-bb37-0242ac130007,,1,admin6

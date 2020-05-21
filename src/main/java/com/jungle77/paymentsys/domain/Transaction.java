@@ -1,12 +1,24 @@
 package com.jungle77.paymentsys.domain;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import com.jungle77.paymentsys.domain.converters.TransactionStatusConverter;
+import com.jungle77.paymentsys.domain.converters.TransactionTypeConverter;
+import com.jungle77.paymentsys.domain.enums.TransactionStatus;
+import com.jungle77.paymentsys.domain.enums.TransactionType;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,21 +38,23 @@ public class Transaction {
     @Column(name = "id")
     private String id;
 
-    @NotNull
-    @Column(name = "parent_transaction")
-    private String parentTransaction;
+    @ManyToOne(targetEntity = Transaction.class)
+    @JoinColumn(name = "parent_transaction")
+    private Transaction parentTransaction;
+    
+    @ManyToOne(targetEntity = Merchand.class)
+    @JoinColumn(name = "merchand_id")
+    private Merchand merchandId;
     
     @NotNull
-    @Column(name = "merchand_id")
-    private String merchandId;
-    
     @Column(name = "type")
-    private Integer type;
+    @Convert(converter = TransactionTypeConverter.class)
+    private TransactionType type;
     
     @Column(name = "status")
-    private Integer status;
+    @Convert(converter = TransactionStatusConverter.class)
+    private TransactionStatus status;
     
-    @NotNull
     @Column(name = "amount")
     private BigDecimal amount;
     
@@ -52,5 +66,11 @@ public class Transaction {
     
     @Column(name = "reference_id")
     private String referenceId;
+    
+    @Column(name = "created_at", updatable = false)
+    private Timestamp createDate;
+    
+    @Column(name = "updated_at", updatable = false)
+    private Timestamp updateDate;
     
 }

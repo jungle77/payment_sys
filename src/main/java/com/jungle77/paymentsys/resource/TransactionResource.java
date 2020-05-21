@@ -1,5 +1,11 @@
 package com.jungle77.paymentsys.resource;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.List;
+
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,16 +15,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jungle77.paymentsys.domain.Merchand;
+import com.jungle77.paymentsys.domain.User;
 import com.jungle77.paymentsys.dto.AuthorizationRequestDto;
-import com.jungle77.paymentsys.dto.AuthorizationResponseDto;
-import com.jungle77.paymentsys.dto.ChargeRequestDto;
+import com.jungle77.paymentsys.dto.ChargeRefundRequestDto;
 import com.jungle77.paymentsys.dto.GeneralResponseDto;
-import com.jungle77.paymentsys.dto.RefundRequestDto;
 import com.jungle77.paymentsys.dto.ReverseRequestDto;
+import com.jungle77.paymentsys.service.MerchandService;
 import com.jungle77.paymentsys.service.TransactionService;
+import com.jungle77.paymentsys.service.UserService;
 
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
+import util.CsvUtils;
 
 @RestController
 @RequestMapping(value = "/api/v1/tx")
@@ -31,12 +40,13 @@ public class TransactionResource {
     private final static String REFUND_IN  = "REFUND_IN: {}";
     private final static String REVERSE_IN = "REVERSE_IN: {}";
     
-    @Autowired
-    private TransactionService transactionService;
+    @Autowired private TransactionService transactionService;
+    @Autowired private UserService userService;
+    @Autowired private MerchandService merchandService;
     
     @ResponseBody
     @PostMapping(value = "/authorization/", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
-    public AuthorizationResponseDto authorizeTransaction(@RequestBody AuthorizationRequestDto requestDto) {
+    public GeneralResponseDto authorizeTransaction(@RequestBody AuthorizationRequestDto requestDto) {
 
         log.info(TransactionResource.AUTH_IN, requestDto);
 
@@ -44,9 +54,10 @@ public class TransactionResource {
         
     }
     
+    
     @ResponseBody
     @PostMapping(value = "/charge/", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
-    public GeneralResponseDto chargeTransaction(@RequestBody ChargeRequestDto requestDto) {
+    public GeneralResponseDto chargeTransaction(@RequestBody ChargeRefundRequestDto requestDto) {
 
         log.info(TransactionResource.CHARGE_IN, requestDto);
 
@@ -56,7 +67,7 @@ public class TransactionResource {
     
     @ResponseBody
     @PostMapping(value = "/refund/", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
-    public GeneralResponseDto refundTransaction(@RequestBody RefundRequestDto requestDto) {
+    public GeneralResponseDto refundTransaction(@RequestBody ChargeRefundRequestDto requestDto) {
 
         log.info(TransactionResource.REFUND_IN, requestDto);
 
@@ -73,6 +84,30 @@ public class TransactionResource {
         return transactionService.reverse(requestDto);
         
     }
+
     
-    
+    @ResponseBody
+    @PostMapping(value = "/load/", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
+    public void load() {
+
+        File usersCsv = new File("C:\\Users\\Jungle77\\dev\\workspace\\payment_system\\src\\main\\resources\\users.csv");
+        File merchandsCsv = new File("C:\\Users\\Jungle77\\dev\\workspace\\payment_system\\src\\main\\resources\\merchands.csv");
+        
+        try {
+            
+            List<User> users = CsvUtils.loadCsv(User.class, new FileInputStream(usersCsv));
+            userService.saveUsers(users);
+            
+            List<Merchand> merchands= CsvUtils.loadCsv(Merchand.class, new FileInputStream(merchandsCsv));
+            merchandService.saveMerchands(merchands);
+            
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+    }
 }
+
+

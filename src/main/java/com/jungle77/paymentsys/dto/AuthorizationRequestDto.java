@@ -11,4 +11,5 @@ public class AuthorizationRequestDto {
     private String merchantId;
     private String amount;
     private String customerEmail;
+    private String customerPhone;
 }

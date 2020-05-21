@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -26,7 +28,7 @@ public class User {
     @Id
     @NotNull
     @Column(name = "id")
-    private String code;
+    private String id;
 
     @Column(name = "user_name")
     private String userName;
@@ -37,15 +39,8 @@ public class User {
     @Column(name = "enabled")
     private Boolean enabled;
 
-    @Column(name = "type")
-    private Integer type;
-    
-    @CreationTimestamp
-    @Column(name = "created_at", updatable = false)
-    private Timestamp createdAt;
-    
-    @CreationTimestamp
-    @Column(name = "updated_at")
-    private Timestamp updatedAt;
+    @ManyToOne(targetEntity = Role.class)
+    @JoinColumn(name = "role")
+    private Role role;
     
 }

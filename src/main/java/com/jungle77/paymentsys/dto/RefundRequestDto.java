@@ -7,7 +7,6 @@ import lombok.Data;
 @Builder
 public class RefundRequestDto {
 
-    private String requestId;
     private String transactionId;
     private String amount;
 }

@@ -7,6 +7,6 @@ import lombok.Data;
 @Builder
 public class ReverseRequestDto {
 
-    private String requestId;
     private String transactionId;
+    
 }

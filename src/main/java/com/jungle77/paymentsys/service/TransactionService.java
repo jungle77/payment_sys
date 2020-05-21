@@ -1,17 +1,16 @@
 package com.jungle77.paymentsys.service;
 
 import com.jungle77.paymentsys.dto.AuthorizationRequestDto;
-import com.jungle77.paymentsys.dto.AuthorizationResponseDto;
-import com.jungle77.paymentsys.dto.ChargeRequestDto;
+import com.jungle77.paymentsys.dto.ChargeRefundRequestDto;
 import com.jungle77.paymentsys.dto.GeneralResponseDto;
-import com.jungle77.paymentsys.dto.RefundRequestDto;
 import com.jungle77.paymentsys.dto.ReverseRequestDto;
 
 public interface TransactionService {
 
-    AuthorizationResponseDto authorize(AuthorizationRequestDto requestDto);
-    GeneralResponseDto charge(ChargeRequestDto requestDto);
-    GeneralResponseDto refund(RefundRequestDto requestDto);
+    GeneralResponseDto authorize(AuthorizationRequestDto requestDto);
+    GeneralResponseDto charge(ChargeRefundRequestDto requestDto);
+    GeneralResponseDto refund(ChargeRefundRequestDto requestDto);
     GeneralResponseDto reverse(ReverseRequestDto requestDto);
 
 }
+

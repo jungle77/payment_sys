@@ -7,7 +7,6 @@ import lombok.Data;
 @Builder
 public class ChargeRequestDto {
 
-    private String requestId;
     private String transactionId;
     private String amount;
 }
