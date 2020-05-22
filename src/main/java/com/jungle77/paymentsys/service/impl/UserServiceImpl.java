@@ -12,8 +12,7 @@ import com.jungle77.paymentsys.service.UserService;
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    @Autowired private UserRepository userRepository;
     
     public void saveUsers(List<User> users) {
         userRepository.saveAll(users);

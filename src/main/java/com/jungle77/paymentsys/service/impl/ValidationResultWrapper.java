@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Builder
 @Data
-public class ValidationResult {
-    private Transaction parentTransaction;
-    private Merchand merchand;
+public class ValidationResultWrapper {
+    public Transaction parentTransaction;
+    public Merchand merchand;
 }

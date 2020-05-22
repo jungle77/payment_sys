@@ -44,7 +44,7 @@ public class Transaction {
     
     @ManyToOne(targetEntity = Merchand.class)
     @JoinColumn(name = "merchand_id")
-    private Merchand merchandId;
+    private Merchand merchand;
     
     @NotNull
     @Column(name = "type")

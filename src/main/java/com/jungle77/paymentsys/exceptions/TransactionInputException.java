@@ -1,4 +1,4 @@
-package com.jungle77.paymentsys.service.impl;
+package com.jungle77.paymentsys.exceptions;
 
 public class TransactionInputException extends Exception {
     

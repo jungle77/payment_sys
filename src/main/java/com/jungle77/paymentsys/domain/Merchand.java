@@ -27,9 +27,9 @@ public class Merchand {
     private String id;
 
     @NotNull
-    @ManyToOne(targetEntity = User.class)
-    @JoinColumn(name = "user_id")
-    private User user;
+//    @ManyToOne(targetEntity = User.class)
+//    @JoinColumn(name = "user_id")
+    private String user_id;
     
     @NotNull
     @Column(name = "name")

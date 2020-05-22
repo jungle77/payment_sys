@@ -39,8 +39,8 @@ public class User {
     @Column(name = "enabled")
     private Boolean enabled;
 
-    @ManyToOne(targetEntity = Role.class)
+//    @ManyToOne(targetEntity = Role.class)
     @JoinColumn(name = "role")
-    private Role role;
+    private int role;
     
 }
